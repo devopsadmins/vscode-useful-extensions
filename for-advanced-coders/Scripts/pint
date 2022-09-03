@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 if [ -f ./pint ]; then
     ./pint "$@"
 elif [ -d "./vendor/bin" ] && [ -f ./vendor/bin/pint ]; then
