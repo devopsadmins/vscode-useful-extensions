@@ -9,14 +9,6 @@ then
 fi
 curl -s "https://laravel.build/$1?with=$bd,memcached,redis,mailhog" | bash
 
-
-# Start the Spinner:
-#spin &
-# Make a note of its Process ID (PID):
-SPIN_PID=$!
-# Kill the spinner on any signal, including our own exit.
-trap "kill -9 $SPIN_PID" `seq 0 15`
-
 cp for-advanced-coders/.bladeformatterrc $1 -f
 cp for-advanced-coders/.eslintrc $1 -f
 cp for-advanced-coders/pint.json $1 -f
@@ -51,7 +43,13 @@ cp ../for-advanced-coders/captainhook.json . -f
 ./vendor/bin/captainhook install -f -s
 
 git add .
-git commit -m "Initial commit"
+if [ $nparam -gt 2 ];
+then
+    git commit -m "$3"
+else
+    git commit -m "Initial commit"
+fi
+
 
 pint
 pest
